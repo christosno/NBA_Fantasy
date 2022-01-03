@@ -10,6 +10,7 @@ const HomeScreen = ({ players }) => {
           <h1>My Team</h1>
         </Col>
         <Col className="my-3 p-3">
+          <h1>Best Players Rating</h1>
           <PlayersTable players={players} />
         </Col>
       </Row>

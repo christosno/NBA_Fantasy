@@ -10,6 +10,7 @@ const PlayersTable = ({ players }) => {
           <th>Name</th>
           <th>Team</th>
           <th>Position</th>
+          <th>Points</th>
         </tr>
       </thead>
       <tbody>
@@ -19,6 +20,9 @@ const PlayersTable = ({ players }) => {
             <td>{`${player.last_name} ${player.first_name}`}</td>
             <td>{player.team.full_name}</td>
             <td>{player.position}</td>
+            <td>
+              <strong>Points</strong>
+            </td>
           </tr>
         ))}
       </tbody>
