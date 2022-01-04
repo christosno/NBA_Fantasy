@@ -15,13 +15,13 @@ const PlayersTable = ({ players }) => {
       </thead>
       <tbody>
         {players.map((player) => (
-          <tr key={player.id}>
-            <td>{player.id}</td>
+          <tr key={player.player_id}>
+            <td>{player.player_id}</td>
             <td>{`${player.last_name} ${player.first_name}`}</td>
-            <td>{player.team.full_name}</td>
+            <td>{player.player_team}</td>
             <td>{player.position}</td>
             <td>
-              <strong>Points</strong>
+              <strong>{player.points}</strong>
             </td>
           </tr>
         ))}

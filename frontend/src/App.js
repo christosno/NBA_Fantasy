@@ -13,26 +13,36 @@ function App() {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getPlayers = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch("https://www.balldontlie.io/api/v1/players");
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
+  // const getPlayers = useCallback(async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const response = await fetch("/api/players/");
+  //     if (!response.ok) {
+  //       throw new Error("Something went wrong!");
+  //     }
+  //     console.log(response);
+  //     const data = await response.json();
+  //     console.log(data.data);
+  //     setPlayers(data.data);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  //   setIsLoading(false);
+  // }, []);
 
-      const data = await response.json();
-      console.log(data.data);
-      setPlayers(data.data);
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   getPlayers();
+  // }, [getPlayers]);
 
   useEffect(() => {
-    getPlayers();
-  }, [getPlayers]);
+    async function fetchPlayers() {
+      const { data } = await axios.get("/api/players/");
+      console.log(data);
+      setPlayers(data);
+    }
+
+    fetchPlayers();
+  }, []);
 
   return (
     <div>
