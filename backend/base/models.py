@@ -13,12 +13,26 @@ class Team(models.Model):
 
 
 class Player(models.Model):
-    player_id= models.CharField(max_length=10, primary_key=True)
-    name= models.CharField(max_length=200, null=True, blank=True)
-    total_points= models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    teams = models.ManyToManyField(Team, blank=True)
+    player_id = models.CharField(max_length=10, primary_key=True)
+    first_name = models.CharField(max_length=200, null=True, blank=True)
+    last_name = models.CharField(max_length=200, null=True, blank=True)
+    position = models.CharField(max_length=5, null=True, blank=True)
+    games_played = models.CharField(max_length=10, null=True, blank=True)
+    rebound = models.CharField(max_length=10, null=True, blank=True)
+    assist = models.CharField(max_length=10, null=True, blank=True)
+    steal = models.CharField(max_length=10, null=True, blank=True)
+    block = models.CharField(max_length=10, null=True, blank=True)
+    turnover = models.CharField(max_length=10, null=True, blank=True)
+    personal_foul = models.CharField(max_length=10, null=True, blank=True)
+    points =  models.CharField(max_length=10, null=True, blank=True)
+    fg_pct =  models.CharField(max_length=10, null=True, blank=True)
+    fg3_pct =  models.CharField(max_length=10, null=True, blank=True)
+    ft_pct =  models.CharField(max_length=10, null=True, blank=True)
+    total_points = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    player_team = models.CharField(max_length=200, null=True, blank=True)
+    user_teams = models.ManyToManyField(Team, blank=True)
     # img = 
-    last_update = models.DateTimeField(auto_now=False)
+    
     
     def __str__(self):
-        return self.name
+        return (self.first_name + self.last_name)
