@@ -3,7 +3,10 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-import requests
+from .serializers import PlayerSerializer
+
+from .models import Player
+
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -15,20 +18,15 @@ def getRoutes(request):
 
 @api_view(['GET'])
 def getPlayers(request):
-    r = requests.get('https://www.balldontlie.io/api/v1/stats?start_date=2022-01-02')
-    players = r.json()
-    return Response(players['data'])
+    players = Player.objects.all()
+    serializer = PlayerSerializer(players, many=True)
+    return Response(serializer.data)
+    
 
 @api_view(['GET'])
 def getPlayer(request, pk):
+    player = Player.objects.get(player_id=pk)
+    serializer = PlayerSerializer(player, many=False)
+    return Response(serializer.data)
 
-    # player = None
-    # for i in players:
-    #     if i[id] == pk:
-    #         player = i
-    #         break
-
-    r = requests.get("https://www.balldontlie.io/api/v1/players/{}".format(pk))
-    player = r.json()
-    return Response(player)
 
