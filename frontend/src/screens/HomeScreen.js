@@ -1,17 +1,34 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import PlayersTable from "../components/PlayersTable";
+import { listPlayers } from "../actions/playerActions";
 
-const HomeScreen = ({ players }) => {
+const HomeScreen = () => {
+  const dispatch = useDispatch();
+
+  const playerList = useSelector((state) => state.playerList);
+  const { error, loading, players } = playerList;
+
+  useEffect(() => {
+    dispatch(listPlayers());
+  }, [dispatch]);
+
   return (
     <Fragment>
       <Row>
-        <Col>
+        <Col xl="8">
           <h1>My Team</h1>
         </Col>
-        <Col className="my-3 p-3">
+        <Col className="my-3 p-3" xl="4">
           <h1>Best Players Rating</h1>
-          <PlayersTable players={players} />
+          {loading ? (
+            <h2>Loading..</h2>
+          ) : error ? (
+            <h3>{error}</h3>
+          ) : (
+            <PlayersTable players={players} />
+          )}
         </Col>
       </Row>
     </Fragment>
