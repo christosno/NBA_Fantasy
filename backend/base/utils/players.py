@@ -14,7 +14,7 @@ def get_player_info(pk):
     # clean data
     player_info = {'player_id': player_info_data['id'], 'first_name': player_info_data['first_name'], 
                    'last_name': player_info_data['last_name'], 'position': player_info_data['position'],
-                   'team': player_info_data['team']['full_name'], }
+                   'team': player_info_data['team']['abbreviation'], }
 
     return player_info
 

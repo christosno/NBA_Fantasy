@@ -1,7 +1,12 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { Row, Col } from "react-bootstrap";
+
 import PlayersTable from "../components/PlayersTable";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+
 import { listPlayers } from "../actions/playerActions";
 
 const HomeScreen = () => {
@@ -23,9 +28,9 @@ const HomeScreen = () => {
         <Col className="my-3 p-3" xl="4">
           <h1>Best Players Rating</h1>
           {loading ? (
-            <h2>Loading..</h2>
+            <Loader />
           ) : error ? (
-            <h3>{error}</h3>
+            <Message variant="danger">{error}</Message>
           ) : (
             <PlayersTable players={players} />
           )}
