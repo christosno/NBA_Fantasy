@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
+
+import { useHistory } from "react-router-dom";
 
 import { Table } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
@@ -6,7 +8,15 @@ import Image from "react-bootstrap/Image";
 import "./PlayersTable.css";
 
 const PlayersTable = ({ players }) => {
-  console.log(players);
+  const history = useHistory();
+
+  const PlayerId = useRef();
+
+  const clickHandler = (e) => {
+    console.log(e.target.dataset.value);
+    const path = `/players/${e.target.dataset.value}`;
+    history.push(path);
+  };
   return (
     <Table striped bordered hover>
       <thead>
@@ -20,14 +30,20 @@ const PlayersTable = ({ players }) => {
       </thead>
       <tbody>
         {players.map((player) => (
-          <tr key={player.player_id}>
-            <td>
+          <tr
+            key={player.player_id}
+            onClick={clickHandler}
+            data-value={player.player_id}
+          >
+            <td data-value={player.player_id}>
               <Image className="player-image" src={player.image} />
             </td>
-            <td>{`${player.last_name} ${player.first_name} // ${player.player_team} // ${player.position}`}</td>
-            <td></td>
-            <td></td>
-            <td>
+            <td data-value={player.player_id}>
+              {`${player.last_name} ${player.first_name} // ${player.player_team} // ${player.position}`}
+            </td>
+            <td data-value={player.player_id}></td>
+            <td data-value={player.player_id}></td>
+            <td data-value={player.player_id}>
               <strong>{player.points}</strong>
             </td>
           </tr>
