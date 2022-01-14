@@ -12,7 +12,7 @@ export const listPlayers = () => async (dispatch) => {
   try {
     dispatch({ type: PLAYERS_LIST_REQUEST });
 
-    const { data } = await axios.get("/api/players/");
+    const { data } = await axios.get("http://127.0.0.1:8000/api/players/");
 
     dispatch({ type: PLAYERS_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -30,14 +30,14 @@ export const detailPlayer = (id, season) => async (dispatch) => {
   try {
     dispatch({ type: PLAYERS_DETAILS_REQUEST });
 
-    let PlayersTotalPages = [];
+    let playersTotalPages = [];
 
     const { data } = await axios.get(
       `https://www.balldontlie.io/api/v1/stats?seasons[]=${season}&player_ids[]=${id}`
     );
 
     // full data from first page
-    const PlayerMatchesPage1 = [...data.data];
+    const playerMatchesPage1 = [...data.data];
 
     // find the num of total pages
     const pagesNum = data["meta"]["total_pages"];
@@ -48,11 +48,20 @@ export const detailPlayer = (id, season) => async (dispatch) => {
         `https://www.balldontlie.io/api/v1/stats?seasons[]=${season}&player_ids[]=${id}&page=${i}`
       );
 
-      PlayersTotalPages = [...PlayerMatchesPage1, ...data.data];
+      playersTotalPages = [...playerMatchesPage1, ...data.data];
+
+      // sort array by date
+      playersTotalPages.sort((a, b) =>
+        a.game.date > b.game.date ? 1 : b.game.date > a.game.date ? -1 : 0
+      );
     }
 
-    dispatch({ type: PLAYERS_DETAILS_SUCCESS, payload: PlayersTotalPages });
-    console.log(PlayersTotalPages);
+    dispatch({
+      type: PLAYERS_DETAILS_SUCCESS,
+      payload: playersTotalPages,
+    });
+
+    // console.log(PlayersTotalPages);
   } catch (error) {
     console.log(error);
     dispatch({

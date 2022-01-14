@@ -13,6 +13,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const playerList = useSelector((state) => state.playerList);
+  console.log(playerList);
   const { error, loading, players } = playerList;
 
   useEffect(() => {

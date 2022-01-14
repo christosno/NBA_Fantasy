@@ -8,9 +8,8 @@ import Image from "react-bootstrap/Image";
 import "./PlayersTable.css";
 
 const PlayersTable = ({ players }) => {
+  console.log(players);
   const history = useHistory();
-
-  const PlayerId = useRef();
 
   const clickHandler = (e) => {
     console.log(e.target.dataset.value);
@@ -36,7 +35,10 @@ const PlayersTable = ({ players }) => {
             data-value={player.player_id}
           >
             <td data-value={player.player_id}>
-              <Image className="player-image" src={player.image} />
+              <Image
+                className="player-image"
+                src={`http://127.0.0.1:8000${player.image}`}
+              />
             </td>
             <td data-value={player.player_id}>
               {`${player.last_name} ${player.first_name} // ${player.player_team} // ${player.position}`}

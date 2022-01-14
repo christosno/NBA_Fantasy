@@ -23,14 +23,13 @@ export const playerListReducer = (state = { players: [] }, action) => {
   }
 };
 
-export const playerDetailsReducer = (state = { matches: [] }, action) => {
+export const playerDetailsReducer = (state = { player: [] }, action) => {
   switch (action.type) {
     case PLAYERS_DETAILS_REQUEST:
-      return { loading: true, matches: [] };
-
+      console.log("request");
+      return { loading: true, player: [] };
     case PLAYERS_DETAILS_SUCCESS:
-      return { loading: false, matches: action.payload };
-
+      return { loading: false, player: action.payload };
     case PLAYERS_DETAILS_FAIL:
       return { loading: false, error: action.payload };
 
