@@ -17,7 +17,7 @@ const PlayersTable = ({ players }) => {
     history.push(path);
   };
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover responsive size="sm">
       <thead>
         <tr>
           <th>#</th>

@@ -1,0 +1,15 @@
+.player-info-img-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-info-img {
+  height: 80%;
+}
+
+.player-info-gen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

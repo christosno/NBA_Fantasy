@@ -12,7 +12,7 @@ function App() {
     <div>
       <Header />
       <main className="py-3">
-        <Container>
+        <Container fluid>
           <Switch>
             <Route path="/" exact>
               <Redirect to="/home" />

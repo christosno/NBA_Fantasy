@@ -1,0 +1,6 @@
+.players-stats-table {
+  height: 85vh;
+  /* overflow: scroll; */
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
