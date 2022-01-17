@@ -1,0 +1,11 @@
+.left-div-first-row {
+  height: 35%;
+  display: flex;
+  text-align: center;
+}
+
+.left-div-second-row {
+  height: 65%;
+  display: flex;
+  text-align: center;
+}

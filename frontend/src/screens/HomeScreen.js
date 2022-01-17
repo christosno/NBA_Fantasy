@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Row, Col } from "react-bootstrap";
 
+import "./HomeScreen.css";
+
 import PlayersTable from "../components/PlayersTable";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -23,10 +25,17 @@ const HomeScreen = () => {
   return (
     <Fragment>
       <Row>
-        <Col xl="8">
-          <h1>My Team</h1>
+        <Col className="my-2 p-3" xl="6">
+          <Row className="my-2 p-3 left-div-first-row">
+            {/* player team */}
+            <h1>My Team</h1>
+          </Row>
+          <Row className="my-2 p-3 left-div-second-row">
+            {/* teams table */}
+            <h1>League Table</h1>
+          </Row>
         </Col>
-        <Col className="my-3 p-3" xl="4">
+        <Col className="my-2 p-3" xl="6">
           <h1>Best Players Rating</h1>
           {loading ? (
             <Loader />

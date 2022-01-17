@@ -63,7 +63,7 @@ def get_players_stats():
     # date = datetime.datetime.now().date()
 
     # all the player_id that use in the database
-    players_id = ['237', '15', '115', '132'] #
+    players_id = ['237', '15', '115', '132', '140', '246', '125', '192', '79', '145'] #
     for player_id in players_id:
         player_avg_stats = get_player_average_stats(player_id)
         # i can use update_or_create

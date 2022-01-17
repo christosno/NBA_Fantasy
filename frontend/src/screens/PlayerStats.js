@@ -20,18 +20,20 @@ const PlayerStats = () => {
   const season = 2021;
   const dispatch = useDispatch();
 
+  // retreve player info
   const totalPlayersInfo = useSelector((state) => state.playerList);
-  // console.log(totalPlayerInfo);
   const {
     loading: playersInfoLoading,
     error: playersInfoError,
     players: playersInfo,
   } = totalPlayersInfo;
 
+  // find the player with the specific id
   const [playerInfo] = playersInfo.filter(
     (player) => player.player_id === params.playerId
   );
 
+  // retrive all matches for player
   const playerMatches = useSelector((state) => state.playerDetails);
   const { loading, error, player } = playerMatches;
 
@@ -49,7 +51,7 @@ const PlayerStats = () => {
         )}
         {!playersInfoLoading && !playersInfoError && playersInfo && (
           <Col className="my-3 p-3" xl="6">
-            <Row style={{ height: "40%" }}>
+            <Row className="my-3 p-3">
               <Col className="player-info-img-btn" xl="6">
                 <Image
                   className="player-info-img"
@@ -63,9 +65,10 @@ const PlayerStats = () => {
                 />
               </Col>
             </Row>
-            <Row style={{ height: "60%" }}>
+            <Row className="my-3 p-3">
               <PlayersAvgStats player={playerInfo} />
             </Row>
+            <Row className="my-3 p-3">Player Chart</Row>
           </Col>
         )}
 

@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 
 const PlayersAvgStats = ({ player }) => {
   return (
-    <Table striped bordered hover responsive>
+    <Table striped bordered hover responsive size="sm">
       <thead>
         <tr>
           <th>Season</th>

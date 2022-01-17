@@ -11,8 +11,8 @@ function App() {
   return (
     <div>
       <Header />
-      <main className="py-3">
-        <Container fluid>
+      <main>
+        <Container>
           <Switch>
             <Route path="/" exact>
               <Redirect to="/home" />
