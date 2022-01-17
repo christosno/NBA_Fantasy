@@ -12,6 +12,7 @@ import Message from "../components/Message";
 import PlayerStatsTable from "../components/PlayerStatsTable";
 import PlayersAvgStats from "../components/PlayersAvgStats";
 import PlayerGeneralInfo from "../components/PlayerGeneralInfo";
+import PlayerStatsChart from "../components/PlayerStatsChart";
 
 import "./PlayerStats.css";
 
@@ -68,7 +69,9 @@ const PlayerStats = () => {
             <Row className="my-3 p-3">
               <PlayersAvgStats player={playerInfo} />
             </Row>
-            <Row className="my-3 p-3">Player Chart</Row>
+            <Row className="my-3 p-3">
+              <PlayerStatsChart matches={player} />
+            </Row>
           </Col>
         )}
 

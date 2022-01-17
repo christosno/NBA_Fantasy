@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import HomeScreen from "./screens/HomeScreen";
 import PlayerStats from "./screens/PlayerStats";
 
-function App() {
+const App = () => {
   return (
     <div>
       <Header />
@@ -29,6 +29,6 @@ function App() {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
