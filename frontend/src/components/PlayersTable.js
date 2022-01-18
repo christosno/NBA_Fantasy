@@ -8,7 +8,6 @@ import Image from "react-bootstrap/Image";
 import "./PlayersTable.css";
 
 const PlayersTable = ({ players }) => {
-  console.log(players);
   const history = useHistory();
 
   const clickHandler = (e) => {

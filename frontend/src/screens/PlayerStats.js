@@ -34,6 +34,8 @@ const PlayerStats = () => {
     (player) => player.player_id === params.playerId
   );
 
+  const playerImg = `http://127.0.0.1:8000${playerInfo.image}`;
+
   // retrive all matches for player
   const playerMatches = useSelector((state) => state.playerDetails);
   const { loading, error, player } = playerMatches;
@@ -54,10 +56,7 @@ const PlayerStats = () => {
           <Col className="my-3 p-3" xl="6">
             <Row className="my-3 p-3">
               <Col className="player-info-img-btn" xl="6">
-                <Image
-                  className="player-info-img"
-                  src={`http://127.0.0.1:8000${playerInfo.image}`}
-                />
+                <Image className="player-info-img" src={playerImg} />
               </Col>
               <Col className="player-info-gen" xl="6">
                 <PlayerGeneralInfo
