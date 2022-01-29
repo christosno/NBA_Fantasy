@@ -57,25 +57,37 @@ def get_player_stats_for_all_games(pk):
         
     return total_player_stats
 
-def calc_player_total_ponts(pk):
-    total_points = 0
-    total_player_match = get_player_stats_for_all_games(pk)
-    
+# calculate player total points
+def calc_player_total_ponts(total_player_match):
 
+    total_points = 0
+    
     for match in total_player_match:
         match_points = 0
-        # player total shouts lost
-        ###################
-        ###################
+        # **********player match points**********
+        # get player's match stats
+        player_pts = match['pts']
+        player_ast = match['ast']
+        player_reb = match['reb']
+        player_stl = match['stl']
+        player_blk = match['blk']
+
+        player_trn = match['turnover']
+        player_pf = match['pf']
+        player_shoot_lost = (match['fga'] - match['fgm']) + (match['fta'] - match['ftm'])
+
+        # calc player's match points
+        match_points = player_pts + player_ast + player_reb + player_stl + player_blk - player_trn - player_pf - player_shoot_lost
+
         # *******player bonus*************
         # get player's team id
-        player_team = match.player.team_id
+        player_team = match['player']['team_id']
         # get match's home team id 
-        home_team = match.game.home_team_id
+        home_team = match['game']['home_team_id']
         # check if player's team is home team
         is_player_team_home_team = (player_team == home_team)
         # check if home team wοn
-        home_team_wοn = (match.game.home_team_score > match.game.visitor_team_score)
+        home_team_wοn = (match['game']['home_team_score'] > match['game']['visitor_team_score'])
 
 
         if home_team_wοn:
@@ -91,7 +103,11 @@ def calc_player_total_ponts(pk):
 
     return total_points
 
-
+def player_more_info(total_player_match):
+    player_height = '{}.{}'.format(total_player_match[0]['player']['height_feet'], total_player_match[0]['player']['height_inches'])
+    player_weight = str(total_player_match[0]['player']['weight_pounds'])
+    
+    return (player_height, player_weight)
 
 def get_players_stats():
     print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
@@ -100,13 +116,24 @@ def get_players_stats():
     # all the player_id that use in the database
     players_id = ['237', '15', '115', '132', '140', '246', '125', '192', '79', '145'] #
     for player_id in players_id:
+        # get player's avg stats
         player_avg_stats = get_player_average_stats(player_id)
+        # get player's total_match
+        total_player_match = get_player_stats_for_all_games(player_id)
+        # get player's total points
+        total_index_rating = calc_player_total_ponts(total_player_match)
+        # avg_index_rating
+        games_played = player_avg_stats['games_played']
+        avg_intex_rating = total_index_rating / games_played
+        # get palyer's some more info
+        [player_height, playerweight] = player_more_info(total_player_match)
+
         # *****************i can use update_or_create***********************
         try:
             # update user stats if player exist in database
             player = Player.objects.get(player_id=player_id)
             print('There is player with id {}'.format(player_id))
-            player.games_played = player_avg_stats['games_played']
+            player.games_played = games_played
             player.rebound=player_avg_stats['reb']
             player.assist=player_avg_stats['ast']
             player.steal=player_avg_stats['stl']
@@ -117,6 +144,8 @@ def get_players_stats():
             player.fg_pct=player_avg_stats['fg_pct']
             player.fg3_pct=player_avg_stats['fg3_pct']
             player.ft_pct=player_avg_stats['ft_pct']
+            player.total_index_rating = total_index_rating
+            player.avg_intex_rating = avg_intex_rating
 
             player.save()
 
@@ -133,7 +162,9 @@ def get_players_stats():
                             steal=player_avg_stats['stl'], block=player_avg_stats['blk'],
                             turnover=player_avg_stats['turnover'],personal_foul=player_avg_stats['pf'],
                             points=player_avg_stats['pts'], fg_pct=player_avg_stats['fg_pct'],
-                            fg3_pct=player_avg_stats['fg3_pct'], ft_pct=player_avg_stats['ft_pct'])
+                            fg3_pct=player_avg_stats['fg3_pct'], ft_pct=player_avg_stats['ft_pct'],
+                            total_index_rating=total_index_rating, avg_intex_rating=avg_intex_rating, 
+                            height=player_height, weight=playerweight)
 
             player.save()
             print('The player {} {} with id:{} added!!'.format(player_info["first_name"],player_info["last_name"],player_info['player_id']))

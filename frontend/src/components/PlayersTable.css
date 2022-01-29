@@ -1,4 +1,22 @@
 .player-image {
-  height: 40px;
+  height: 50px;
   /* padding-left: 60px; */
+}
+
+.player-row {
+  vertical-align: middle;
+}
+
+.player-row:hover,
+.player-row:active {
+  cursor: pointer;
+}
+
+.table-head__games:hover,
+.table-head__games:active,
+.table-head__rating:hover,
+.table-head__rating:active,
+.table-head__points:hover,
+.table-head__points:active {
+  cursor: pointer;
 }
